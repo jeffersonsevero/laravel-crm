@@ -23,7 +23,8 @@ class Register extends Component
 
     public function render(): View
     {
-        return view('livewire.auth.register');
+        return view('livewire.auth.register')
+            ->layout('components.layouts.guest');
     }
 
     public function submit(): void
@@ -32,7 +33,7 @@ class Register extends Component
         $user = User::query()->create([
             'name'     => $this->name,
             'email'    => $this->email,
-            'password' => bcrypt($this->password),
+            'password' => $this->password,
         ]);
         auth()->login($user);
         $this->redirect(RouteServiceProvider::HOME);
