@@ -63,3 +63,12 @@ it('validates email confirmation', function () {
         ->call('submit')
         ->assertHasErrors(['email' => 'confirmed']);
 });
+
+it('should email unique', function () {
+    User::factory()->create(['email' => 'a@a.com']);
+    Livewire::test(Register::class)
+        ->set('email', 'a@a.com')
+        ->call('submit')
+        ->assertHasErrors(['email' => 'unique']);
+
+});
