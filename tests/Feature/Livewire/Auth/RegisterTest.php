@@ -29,3 +29,32 @@ it('should register a new user', function () {
     assertDatabaseCount('users', 1);
 
 });
+
+test('required fields', function ($field) {
+    Livewire::test(Register::class)
+        ->set($field, '')
+        ->call('submit')
+        ->assertHasErrors([$field => 'required']);
+})->with(['name', 'email', 'password']);
+
+test('max characters', function ($field) {
+    Livewire::test(Register::class)
+        ->set($field, str_repeat('aa', 256))
+        ->call('submit')
+        ->assertHasErrors();
+})->with(['name']);
+
+it('validates email', function () {
+    Livewire::test(Register::class)
+        ->set('email', 'invalid')
+        ->call('submit')
+        ->assertHasErrors(['email' => 'email']);
+});
+
+it('validates email confirmation', function () {
+    Livewire::test(Register::class)
+        ->set('email', 'a@a.com')
+        ->set('email_confirmation', 'b@b.com')
+        ->call('submit')
+        ->assertHasErrors(['email' => 'confirmed']);
+});
