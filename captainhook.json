@@ -20,8 +20,7 @@
         "actions": [
             {
                 "action": "\\CaptainHook\\App\\Hook\\PHP\\Action\\Linting",
-                "action": "./vendor/bin/pest",
-                "action": "./vendor/bin/phpstan"
+                "action": "./vendor/bin/pest && ./vendor/bin/pint && ./vendor/bin/phpstan"
             }
         ]
     },
