@@ -19,7 +19,8 @@
         "enabled": true,
         "actions": [
             {
-                "action": "\\CaptainHook\\App\\Hook\\PHP\\Action\\Linting"
+                "action": "\\CaptainHook\\App\\Hook\\PHP\\Action\\Linting",
+                "action": "./vendor/bin/pest"
             }
         ]
     },
