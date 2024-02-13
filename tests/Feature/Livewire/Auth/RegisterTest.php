@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Auth\Register;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 
@@ -27,6 +28,8 @@ it('should register a new user', function () {
     ]);
 
     assertDatabaseCount('users', 1);
+
+    expect(auth()->user()->id)->toBe(User::query()->first()->id);
 
 });
 
