@@ -3,6 +3,7 @@
 namespace App\Livewire\Auth;
 
 use App\Models\User;
+use App\Providers\{AppServiceProvider, RouteServiceProvider};
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
@@ -34,6 +35,7 @@ class Register extends Component
             'password' => bcrypt($this->password),
         ]);
         auth()->login($user);
+        $this->redirect(RouteServiceProvider::HOME);
 
     }
 
