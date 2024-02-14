@@ -3,6 +3,7 @@
 namespace App\Livewire\Auth;
 
 use App\Models\User;
+use App\Notifications\WelcomeNotification;
 use App\Providers\{AppServiceProvider, RouteServiceProvider};
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Rule;
@@ -36,6 +37,7 @@ class Register extends Component
             'password' => $this->password,
         ]);
         auth()->login($user);
+        $user->notify(new WelcomeNotification());
         $this->redirect(RouteServiceProvider::HOME);
 
     }

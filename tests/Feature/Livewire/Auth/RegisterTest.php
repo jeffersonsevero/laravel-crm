@@ -2,8 +2,10 @@
 
 use App\Livewire\Auth\Register;
 use App\Models\User;
+use App\Notifications\WelcomeNotification;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
 
 uses(RefreshDatabase::class);
@@ -70,5 +72,21 @@ it('should email unique', function () {
         ->set('email', 'a@a.com')
         ->call('submit')
         ->assertHasErrors(['email' => 'unique']);
+
+});
+
+it('should send notification welcoming the new user', function () {
+    Notification::fake();
+
+    Livewire::test(Register::class)
+        ->set('name', 'John')
+        ->set('email', 'j@j.com')
+        ->set('email_confirmation', 'j@j.com')
+        ->set('password', 'password')
+        ->call('submit');
+
+    $user = User::whereEmail('j@j.com')->first();
+
+    Notification::assertSentTo($user, WelcomeNotification::class);
 
 });
