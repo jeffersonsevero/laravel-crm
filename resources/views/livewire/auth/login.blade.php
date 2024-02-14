@@ -1,3 +1,7 @@
 <div>
-    {{-- The Master doesn't talk, he acts. --}}
+    @error('invalidCredentials')
+        <div>
+            <p>{{ $message }}</p>
+        </div>
+    @enderror
 </div>
